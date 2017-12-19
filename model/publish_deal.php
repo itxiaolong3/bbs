@@ -40,6 +40,7 @@ $pub_time=time();
 $sql="insert into publish values(null,'$pub_title','$pub_content','$pub_owner','$pub_time',DEFAULT ,DEFAULT,'$pub_module_id' )";
 $result=$mysql->my_query($sql);
 if ($result){
+    //发表成功就删除保存输入的值
     $_SESSION['inputContent']=array();
     $_SESSION['inputTitle']=array();
     //发表成功
