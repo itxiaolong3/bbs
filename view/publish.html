@@ -41,12 +41,12 @@
 			<a href="../index.php">首页</a> &gt; <a>发帖界面</a>
 	</div>
 	<div id="publish">
-		<form method="post" action="publish_deal.php">
+		<form method="post" action="publish_deal.php" >
 			<select name="module_id">
-				<option selected="selected">请选择一个版块</option>
-				<option>PHP版块</option>
-				<option>安卓版块</option>
-				<option>java版块</option>
+				<option selected="selected" value="">请选择一个版块</option>
+				<option value="1">PHP版块</option>
+				<option value="2">安卓版块</option>
+				<option value="3">java版块</option>
 			</select>
 			<input class="title" placeholder="请输入标题" name="pub_title" type="text" />
 			<textarea name="pub_content" class="content"></textarea>
