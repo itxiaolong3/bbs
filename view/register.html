@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>IT小龙技术论坛_注册页</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="shortcut icon" href=".<?php echo DIR_PUBLIC;?>/image/webheader.ico"/>
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/register.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">IT小龙技术论坛</div>
+			<div class="nav">
+				<a href="../index.php">首页</a>
+				<a>新帖</a>
+				<a>话题</a>
+			</div>
+			<div class="serarch">
+				<form>
+					<input class="keyword" type="text" name="keyword" placeholder="搜索其实很简单" />
+					<input class="submit" type="submit" name="submit" value="" />
+				</form>
+			</div>
+			<div class="login">
+				<!--<?php if (isset($_COOKIE['user_id'])||isset ($_SESSION['userinfo'])){;?>
+				<a href="#"><?php echo $_SESSION['userinfo']['user_name'];?>您好</a>
+				<a href="model/logout.php">&nbsp;退出</a>
+				<?php }else{;?>
+				<a href="./loginforhtml.php">登录</a>&nbsp;
+				<a href="./register.php">注册</a>
+				<?php };?>-->
+				<?php login_regin();?>
+			</div>
+		</div>
+	</div>
+	<div style="margin-top:55px;"></div>
+	<div id="register" class="auto">
+		<h2>欢迎注册成为 传智播客BBS论坛会员</h2>
+		<form action="register_deal.php" method="POST">
+			<label>用户名：<input type="text" name="user_name" /><span>*6-16位，请使用英文字母、数字</span></label>
+			<label>密码：<input type="password" name="user_password1" /><span>*6-16位，请使用英文字母、数字，注意区分大小写</span></label>
+			<label>确认密码：<input type="password" name="user_password2" /><span>*两次输入的密码必须一致</span></label>
+			<label>验证码：<input name="vcode" type="text"  /><span>*请输入下方验证码</span></label>
+			<img class="vcode" src="../core/captcha.php"
+				 onclick="src='../core/captcha.php?'+Math.random()" /><!--点击图片自动刷新，但需要传入一个参数哦-->
+			<div style="clear:both;"></div>
+			<input class="btn" type="submit" value="确定注册" />
+		</form>
+	</div>
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>河源职业技术学院15软件技术---小龙</a>
+		</div>
+		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
+	</div>
+</body>
+</html>

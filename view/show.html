@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>IT小龙技术论坛_帖子详情页</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="shortcut icon" type="image/x-icon" href="http://outo2cfnz.bkt.clouddn.com/weblogo/webheader.ico"/>
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/show.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">IT小龙技术论坛</div>
+			<div class="nav">
+				<a href="../index.php">首页</a>
+			</div>
+			<div class="serarch">
+				<form action="../model/list_son.php" method="GET">
+					<input class="keyword" type="text" name="keyword" placeholder="搜索其实很简单" />
+					<input class="submit" type="submit"  value="" />
+				</form>
+			</div>
+			<div class="login">
+				<!--<?php if (isset($_COOKIE['user_id'])||isset ($_SESSION['userinfo'])){;?>
+				<a href="#"><?php echo $_SESSION['userinfo']['user_name'];?>您好</a>
+				<a href="./logout.php">&nbsp;退出</a>
+				<?php }else{;?>
+				<a href="model/loginforhtml.php">登录</a>&nbsp;
+				<a href="./register.php">注册</a>
+				<?php };?>-->
+				<?php login_regin();?>
+			</div>
+		</div>
+	</div>
+	<div style="margin-top:50px;"></div>
+	<div id="position_a" class="auto">
+		 <a href="../index.php">首页</a> &gt; <a href="javascript :;"  onClick="javascript :history.back(-1);">php专题</a> &gt; <a>回帖展示</a>
+	</div>
+	<div id="main" class="auto">
+		<div class="wrap1">
+			<div class="pages">
+				<?php echo $strPage;?>
+			</div>
+			<a class="btn reply" href="./reply.php?pub_id=<?php echo $row['pub_id'];?>"></a>
+			<div style="clear:both;"></div>
+		</div>
+		<?php if($pageNum==1){;?>
+		<div class="wrapContent">
+			<div class="left">
+				<div class="face">
+					<a target="_blank" href="">
+						<img width="160px"
+								src="<?php echo $row['user_image'];?>" />
+					</a>
+				</div>
+				<div class="name">
+					<a href=""><?php echo $row['pub_owner'];?></a>
+				</div>
+			</div>
+			<div class="right">
+				<div class="title">
+					<h2><?php echo $row['pub_title'];?></h2>
+					<span>阅读：<?php echo $row['pub_hits'];?>&nbsp;|&nbsp;回复：<?php echo $rowCount;?></span>
+					<div style="clear:both;"></div>
+				</div>
+				<div class="pubdate">
+					<span class="date">发布于：<?php echo date('Y-m-d H:i:s',$row['pub_time']);?> </span>
+					<span class="floor" style="color:red;font-size:14px;font-weight:bold;">楼主 </span>
+				</div>
+				<div class="content">
+					<?php echo $row['pub_content'];?>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<?php  };?>
+
+		<?php $i=1+$offset; while($req_row=mysqli_fetch_assoc($req_result)){?>
+		<div class="wrapContent">
+			<div class="left">
+				<div class="face">
+					<a target="_blank" href="">
+						<img width="130px"
+							 src="<?php echo $req_row['user_image'];?>" />
+					</a>
+				</div>
+				<div class="name">
+					<a href=""><?php echo $req_row['rep_user'];?></a>
+				</div>
+			</div>
+			<div class="right">
+
+				<div class="pubdate">
+					<span class="date">回复时间：<?php echo date('Y-m-d H:i:s',$req_row['rep_time']);?></span>
+					<span class="floor"><?php echo $i++;?>楼&nbsp;|&nbsp;
+						<a href="./quote.php?num=<?php echo $i-1; ?>&pub_id=<?php echo $row['pub_id'];?>&rep_id=<?php echo $req_row['rep_id'];?>">
+							引用</a></span>
+				</div>
+				<div class="content">
+					<?php
+					// 提取被引用的帖子的信息
+					if($req_row['rep_quote_id'] != 0) {
+						$quote_sql = "select * from reply where rep_id={$req_row['rep_quote_id']}";
+						$quote_result =$mysql->my_query($quote_sql);
+						$quote_row = mysqli_fetch_assoc($quote_result); // 被引用的帖子的数组信息
+					}
+				?>
+					<?php if($req_row['rep_quote_id'] != 0) : ?>
+					<div class="quote">
+						<h2>引用<?php echo $req_row['rep_num']; ?>楼 <?php echo $quote_row['rep_user']; ?> 发表的: </h2>
+						<?php echo $quote_row['rep_content']; ?>
+					</div>
+					<?php endIf; ?>
+					<?php echo $req_row['rep_content']; ?>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<?php }?>
+		<div class="wrap1">
+			<div class="pages">
+				<?php echo $strPage;?>
+			</div>
+			<a class="btn reply" href="./reply.php?pub_id=<?php echo $row['pub_id'];?>"></a>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>河源职业技术学院15软件技术---小龙</a>
+		</div>
+		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
+	</div>
+</body>
+</html>

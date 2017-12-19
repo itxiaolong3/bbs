@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>IT小龙技术论坛_引用回复页</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="shortcut icon" href=".<?php echo DIR_PUBLIC;?>/image/webheader.ico"/>
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/publish.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">IT小龙技术论坛</div>
+			<div class="nav">
+				<a href="../index.php">首页</a>
+			</div>
+			<div class="serarch">
+				<form>
+					<input class="keyword" type="text" name="keyword" placeholder="搜索其实很简单" />
+					<input class="submit" type="submit" name="submit" value="" />
+				</form>
+			</div>
+			<div class="login">
+				<!--<?php if (isset($_COOKIE['user_id'])||isset ($_SESSION['userinfo'])){;?>
+				<a href="#"><?php echo $_SESSION['userinfo']['user_name'];?>您好</a>
+				<a href="model/logout.php">&nbsp;退出</a>
+				<?php }else{;?>
+				<a href="model/loginforhtml.php">登录</a>&nbsp;
+				<a href="./register.php">注册</a>
+				<?php };?>-->
+				<?php login_regin();?>
+			</div>
+		</div>
+	</div>
+	<div style="margin-top:55px;"></div>
+	<div id="position_a" class="auto">
+		 <a href="../index.php">首页</a> &gt; <a href="javascript :;"  onClick="javascript :history.back(-1);">回帖展示</a> &gt; <a>引用回帖</a> &gt;
+	</div>
+	<div id="publish">
+		<div><?php echo $row['pub_owner'];?> : <?php echo $row['pub_title'];?></div>
+		<div class="quote">
+			<p class="title">引用<?php echo $num;?>楼 <?php echo $rep_row['rep_user'];?> 发表的: </p>
+			<?php echo $rep_row['rep_content'];?>
+		</div>
+		<form method="POST" action="quote_deal.php?num=<?php echo $num;?>&pub_id=<?php echo $pub_id;?>&rep_id=<?php echo $rep_id;?>">
+			<textarea name="rep_content" class="content"></textarea>
+			<input class="reply" type="submit"  value="" />
+			<div style="clear:both;"></div>
+		</form>
+	</div>
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>河源职业技术学院15软件技术---小龙</a>
+		</div>
+		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
+	</div>
+</body>
+</html>

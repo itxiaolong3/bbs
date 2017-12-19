@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>IT小龙技术论坛_首页</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="shortcut icon" href="<?php echo DIR_PUBLIC;?>/image/webheader.ico"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo DIR_PUBLIC;?>/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo DIR_PUBLIC;?>/css/index.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div class="header_wrap">
+		<div id="header" class="auto">
+			<div class="logo">IT小龙技术论坛</div>
+			<div class="nav">
+				<a class="hover">首页</a>
+			</div>
+			<div class="serarch">
+				<form action="./model/list_son.php" method="GET">
+					<input class="keyword" type="text" name="keyword" placeholder="搜索其实很简单" />
+					<input class="submit" type="submit" value="" />
+				</form>
+			</div>
+			<div class="login">
+				<!--<?php if (isset($_COOKIE['user_id'])||isset ($_SESSION['userinfo'])){;?>
+					<?php if(!isset ($_SESSION['userinfo'])){;?>
+						<a href="#"><?php echo $_COOKIE['user_name'];?>您好</a>
+					<?php }else{;?>
+					<a href="#"><?php echo $_SESSION['userinfo']['user_name'];?>您好</a>
+					<?php };?>
+				<a href="model/logout.php">&nbsp;退出</a>
+				<a href="model/upload_image.php">上传头像</a>
+				<?php }else{;?>
+				<a href="model/loginforhtml.php">登录</a>&nbsp;
+				<a href="model/register.php">注册</a>
+				<?php };?>-->
+				<?php login_regin_forindex();?>
+			</div>
+		</div>
+	</div>
+	<div style="margin-top:55px;"></div>
+	<div id="hot" class="auto">
+		<div class="title">技术文章</div>
+		<ul class="newslist">
+			<!-- 20条 -->
+			<li><a href="https://mp.weixin.qq.com/s/znjGPRO7cM5gAKJY2IZ9rA" target="_blank">[用RecyclerView打造一个轮播图]</a> <a href="https://mp.weixin.qq.com/s/znjGPRO7cM5gAKJY2IZ9rA" target="_blank">作者：大头呆</a></li>
+			<li><a href="https://juejin.im/post/5a291aca51882531926e9e3d" target="_blank">[Android触摸事件原理]</a> <a href="https://juejin.im/post/5a291aca51882531926e9e3d" target="_blank">作者： 看书的小蜗牛</a></li>
+			<li><a href="http://www.jianshu.com/p/426864584518" target="_blank">[MVP+RXjava+Retrofit2详细讲解]</a> <a  href="http://www.jianshu.com/p/426864584518" target="_blank">作者：Souv</a></li>
+			<li><a href="http://blog.csdn.net/mabeijianxi/article/details/78452325"  target="_blank">[我的 Android 面试故事 ]</a> <a href="http://blog.csdn.net/mabeijianxi/article/details/78452325"  target="_blank">作者：剑西</a></li>
+			<li><a href="https://www.cnblogs.com/findumars/p/4989353.html"  target="_blank">[Mysql高级应用]</a> <a href="https://www.cnblogs.com/findumars/p/4989353.html"  target="_blank">联表操作的sql语句小结</a></li>
+			<li><a href="#">[Android培训]</a> <a href="#">安卓5期就业班热闹开班典礼</a></li>
+			<li><a href="#">[PHP培训]</a> <a href="#">探知广州入冬失败的原因—PHP15期</a></li>
+			<li><a href="#">[网页培训]</a> <a href="#">颜值爆表的网页班开学啦，女神在这</a></li>
+			<li><a href="#">[PHP培训]</a> <a href="#">PHP16期基础班：微笑传递温暖</a></li>
+			<li><a href="#">[Java培训]</a> <a href="#">2015年最后一班高薪直通车启动</a></li>
+			<li><a href="#">[Android培训]</a> <a href="#">6期两个男生也公主抱？这画面..</a></li>
+			<li><a href="http://blog.csdn.net/javaniuniu/article/details/78567487?locationNum=10&fps=1"  target="_blank">[Java从入门到精通]</a> <a href="http://blog.csdn.net/javaniuniu/article/details/78567487?locationNum=10&fps=1"  target="_blank">入门从开发环境入手</a></li>
+		</ul>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="box auto">
+		<div class="title">
+			PHP专题
+			<span style="display: inline-block;float: right;margin-top: -5px;"><a class="btn publish" href="./model/publish.php"></a></span>
+		</div>
+		<div class="classList">
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">php基础</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox old">
+				<h2><a href="./model/list_father.php">ci专题</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox lock">
+				<h2><a href="./model/list_father.php">TinkPHP专题</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">自学路线</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">所有贴文</a> <span>(今日*)</span></h2>
+				回帖：xxx<br />
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div class="box auto">
+		<div class="title">
+			JAVA专题
+			<span style="display: inline-block;float: right;margin-top: -5px;"><a class="btn publish" href="./model/publish.php"></a></span>
+		</div>
+		<div class="classList">
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">java基础</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox old">
+				<h2><a href="./model/list_father.php">各大框架</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox lock">
+				<h2><a href="./model/list_father.php">入门视频</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">技术文章</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">项目实战</a> <span>(今日38)</span></h2>
+				帖子：1939<br />
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div class="box auto">
+		<div class="title">
+			Android专题
+			<span style="display: inline-block;float: right;margin-top: -5px;"><a class="btn publish" href="./model/publish.php"></a></span>
+		</div>
+		<div class="classList">
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">安卓基础</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox old">
+				<h2><a href="./model/list_father.php">自定义view</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox lock">
+				<h2><a href="./model/list_father.php">网络请求</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div class="childBox new">
+				<h2><a href="./model/list_father.php">框架收集</a> <span>(今日38)</span></h2>
+				帖子：1939539<br />
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>河源职业技术学院15软件技术---小龙</a>
+		</div>
+		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
+	</div>
+</body>
+</html>

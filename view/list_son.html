@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>IT小龙技术论坛_显示查询帖子列</title>
+	<meta name="keywords" content="关键字列表" />
+	<meta name="description" content="网页描述" />
+	<link rel="shortcut icon" href=".<?php echo DIR_PUBLIC;?>/image/webheader.ico"/>
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
+	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/list.css" />
+	<style type="text/css"></style>
+	<script type="text/javascript"></script>
+</head>
+<body>
+<div class="header_wrap">
+	<div id="header" class="auto">
+		<div class="logo">IT小龙技术论坛</div>
+		<div class="nav">
+			<a href="../index.php">首页</a>
+		</div>
+		<div class="serarch">
+			<form action="./list_son.php" method="GET">
+				<input class="keyword" type="text" name="keyword" placeholder="搜索其实很简单" />
+				<input class="submit" type="submit" value="" />
+			</form>
+		</div>
+		<div class="login">
+			<!--<?php if (isset($_COOKIE['user_id'])||isset ($_SESSION['userinfo'])){;?>
+            <a href="#"><?php echo $_SESSION['userinfo']['user_name'];?>您好</a>
+            <a href="./logout.php">&nbsp;退出</a>
+            <?php }else{;?>
+            <a href="./loginforhtml.php">登录</a>&nbsp;
+            <a href="./register.php">注册</a>
+            <?php };?>-->
+			<?php login_regin();?>
+		</div>
+	</div>
+</div>
+<div style="margin-top:55px;"></div>
+	<div id="position_a" class="auto">
+		 <a href="../index.php">首页</a> &gt; <a href="./list_father.php">所有贴文</a>&gt; <a>搜索贴文结果</a>
+	</div>
+<div id="main" class="auto">
+	<div id="left">
+		<div class="box_wrap">
+			<h3>搜索结果</h3>
+			<div class="num">
+				今日：<span>7</span>&nbsp;&nbsp;&nbsp;
+				总帖：<span>15</span>
+				<div class="moderator"> 当前版块： <a>贴文搜索</a></div>
+			</div>
+			<div class="pages_wrap">
+				<a class="btn publish" href=""></a>
+				<div class="pages">
+					<?php echo $strPage;?>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+		<ul class="postsList">
+			<?php if($rowCount<=0):?>
+			<?php echo "很抱歉，没有您要的帖子。";?>
+			<?php endif;?>
+
+			<?php while($row=mysqli_fetch_assoc($result)):?>
+			<?php
+					//提取当前帖子的回复时间和回复的次数
+					$req_sql="select max(rep_time) as last_time,count(*) as rep_num from reply where
+					rep_pub_id={$row['pub_id']}";
+					$rep_row=$mysqls->fetchRow($req_sql);
+			$rep_time=$rep_row['last_time'];
+			$rep_num=$rep_row['rep_num'];
+			?>
+
+			<li>
+				<div class="smallPic">
+					<a href="#">
+						<img width="45" height="45" src="<?php echo $row['user_image'];?>">
+					</a>
+				</div>
+				<div class="subject">
+					<div class="titleWrap"><a href="#">[分类：java]</a>&nbsp;&nbsp;
+						<h2><a href="./show.php?pub_id=<?php echo $row['pub_id'];?>">
+							<?php echo str_replace("$getkeyword","<font color='red'>$getkeyword</font>",$row['pub_title']);?></a>
+						</h2>
+					</div>
+					<p>
+						楼主：<?php echo $row['pub_owner'];?>&nbsp<?php echo date('Y-m-d H:i:s',$row['pub_time']);?>&nbsp;&nbsp;&nbsp;&nbsp;最后回复：<?php echo $rep_time==0 ? '暂无' :
+							date('Y-m-d H:i:s',$rep_time);?>
+					</p>
+				</div>
+				<div class="count">
+					<p>
+						回复<br /><span><?php echo $rep_num;?></span>
+					</p>
+					<p>
+						浏览<br /><span><?php echo $row['pub_hits'];?></span>
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</li>
+			<?php endwhile;?>
+
+
+		</ul>
+		<div class="pages_wrap">
+			<a class="btn publish" href=""></a>
+			<div class="pages">
+				<?php echo $strPage;?>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+			<div id="right">
+			<div class="classList">
+				<div class="title">模块展示</div>
+				<ul class="listWrap">
+					<li>
+						<h2><a href="#">本站专题</a></h2>
+						<ul>
+							<li><h3><a href="#">CI专题</a></h3></li>
+							<li><h3><a href="#">ThinkPHP专题</a></h3></li>
+							<li><h3><a href="#">自学路线</a></h3></li>
+						</ul>
+						<ul>
+							<li><h3><a href="#">java专题</a></h3></li>
+							<li><h3><a href="#">安卓专题</a></h3></li>
+							<li><h3><a href="#">框架专题</a></h3></li>
+						</ul>
+					</li>
+					
+			
+				</ul>
+			</div>
+			<!--友情链接-->
+			<div class="classList">
+				<div class="title">友情链接</div>
+				<ul class="listWrap">
+					<li>
+							<ul>
+							<li><h3><a href="https://www.imooc.com/" target="_blank">慕课网</a></h3></li>
+							<li><h3><a href="http://www.baidu.com" target="_blank">百度</a></h3></li>
+							<li><h3><a href="http://www.itheima.com/" target="_blank">黑马程序员官网</a></h3></li>
+							</ul>
+					</li>	
+				</ul>
+			</div>
+			<!--二维码-->
+			<div class="classList">
+				<div class="title">我的公众号</div>
+				<ul class="listWrap">
+					<li>
+							<img src="http://outo2cfnz.bkt.clouddn.com/bbs/gzhao.jpg" width="200px" height="200px"/>
+							
+					</li>
+					<li style="width:200px;text-align:center;"><span>(更多技术分享尽在这里哦)</span></li>					
+				</ul>
+			</div>
+		</div>
+	<div style="clear:both;"></div>
+</div>
+	<div id="footer" class="auto">
+		<div class="bottom">
+			<a>河源职业技术学院15软件技术---小龙</a>
+		</div>
+		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
+	</div>
+</body>
+</html>
