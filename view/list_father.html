@@ -9,8 +9,13 @@
     <link rel="shortcut icon" type="image/x-icon" href="http://outo2cfnz.bkt.clouddn.com/weblogo/webheader.ico"/>
     <link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css"/>
     <link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/list.css"/>
+    <script src=".<?php echo DIR_PUBLIC;?>/js/jquery.min.js" charset="utf-8"></script>
     <style type="text/css"></style>
-    <script type="text/javascript"></script>
+    <script>
+        $(function () {
+
+        });
+    </script>
 </head>
 <body>
 <div class="header_wrap">
@@ -78,7 +83,12 @@
                     </a>
                 </div>
                 <div class="subject">
-                    <div class="titleWrap"><a href="#">[分类]</a>&nbsp;&nbsp;<h2><a
+                    <div class="titleWrap"><a href="#" id="type_a">[分类:
+                        <?php if($row['pub_module_id']==1):?><?php echo "PHP";?><?php endif;?>
+                        <?php if($row['pub_module_id']==2):?><?php echo "Android";?><?php endif;?>
+                        <?php if($row['pub_module_id']==3):?><?php echo "JAVA";?><?php endif;?>]
+
+                    </a>&nbsp;&nbsp;<h2><a
                             href="./show.php?pub_id=<?php echo $row['pub_id'];?>"><?php echo $row['pub_title'];?></a>
                     </h2></div>
                     <p>
