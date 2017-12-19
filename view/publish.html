@@ -9,8 +9,14 @@
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/publish.css" />
 	<style type="text/css"></style>
-	<script type="text/javascript"></script>
+    <script src=".<?php echo DIR_PUBLIC;?>/js/jquery.min.js" charset="utf-8"></script>
 </head>
+<script>
+    $(function () {
+        $("#titleid").val("<?php echo  $_SESSION['inputTitle'];?>");
+        $("#contentid").val("<?php echo  $_SESSION['inputContent'];?>");
+    });
+</script>
 <body>
 	<div class="header_wrap">
 		<div id="header" class="auto">
@@ -48,8 +54,8 @@
 				<option value="2">安卓版块</option>
 				<option value="3">java版块</option>
 			</select>
-			<input class="title" placeholder="请输入标题" name="pub_title" type="text" />
-			<textarea name="pub_content" class="content"></textarea>
+			<input class="title" placeholder="请输入标题" name="pub_title" type="text" id="titleid"/>
+			<textarea name="pub_content" class="content" id="contentid"></textarea>
 			<input class="publish" type="submit" name="submit" value="" />
 			<div style="clear:both;"></div>
 		</form>
