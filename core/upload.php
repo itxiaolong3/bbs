@@ -45,7 +45,7 @@ function upload($file,$allow,& $error,$path,$maxsize=1048576){
     $target=$path . '/' .$newname;
     $result=move_uploaded_file($file['tmp_name'],$target);
     if ($result){
-       return 'http://www.'.$_SERVER['HTTP_HOST'].'/bbs/uploads/images/'.$newname;
+       return 'http://www.'.$_SERVER['HTTP_HOST'].'/mybbs/uploads/images/'.$newname;
     }else{
         $error="发生未知错误，上传失败";
         return false;
