@@ -12,7 +12,8 @@ $arr=$sqlconfig['db'];
 $mysql=MySqlDBUtil::getInstance($arr);
 //获取传来的数据
 $pub_title=escapeString($_POST['pub_title']);
-$pub_content=escapeString($_POST['pub_content']);
+$pub_content=$_POST['pub_content'];
+//$pub_content=escapeString($_POST['pub_content']);
 $pub_module_id=escapeString($_POST['module_id']);
 session_start();
 //var_dump("分类标志"+$_POST['module_id']) ;
@@ -37,13 +38,22 @@ if (isset($_SESSION['userinfo'])){
     $pub_owner='非法人员';
 }
 $pub_time=time();
-$sql="insert into publish values(null,'$pub_title','$pub_content','$pub_owner','$pub_time',DEFAULT ,DEFAULT,'$pub_module_id' )";
+//得到插入图片的时间戳，以此为帖文标志
+$getpubtime=$_GET['getpubtime'];
+$sql="insert into publish values(null,'$pub_title','$pub_content','$pub_owner','$pub_time',DEFAULT ,DEFAULT,'$pub_module_id','$getpubtime' )";
+
 $result=$mysql->my_query($sql);
+//得到插入的id
+$getnewid=$mysql->getLastId();
+
 if ($result){
     //发表成功就删除保存输入的值
     $_SESSION['inputContent']=array();
     $_SESSION['inputTitle']=array();
+
     //发表成功
+    //发表成功后就把贴文中的图片表里对应的贴文id修改为对应的原贴。
+    $uimgsql="update pub_img set img_pub_id='$getnewid'";
     jump('./list_father.php');
 
 }else{

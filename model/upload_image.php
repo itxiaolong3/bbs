@@ -10,7 +10,7 @@ include '../init.php';
 session_start();
 //判断用户是否登录
 if (!isset($_SESSION['userinfo'])){
-    jump('./loginforhtml.php','1','请先登录');
+    jump('./login.php','1','请先登录');
 }
 //加载视图文件
 include DIR_VIEW.'upload_image.html';

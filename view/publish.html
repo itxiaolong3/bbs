@@ -8,13 +8,15 @@
 	<link rel="shortcut icon" href=".<?php echo DIR_PUBLIC;?>/image/webheader.ico"/>
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/publish.css" />
-	<style type="text/css"></style>
+	<!--layui框架需要引入的js和css-->
+	<link rel="stylesheet" href=".<?php echo DIR_PUBLIC;?>/css/layui.css" media="all">
+	<script src=".<?php echo DIR_PUBLIC;?>/layui.js" charset="utf-8"></script>
     <script src=".<?php echo DIR_PUBLIC;?>/js/jquery.min.js" charset="utf-8"></script>
 </head>
 <script>
     $(function () {
-        $("#titleid").val("<?php echo  $_SESSION['inputTitle'];?>");
-        $("#contentid").val("<?php echo  $_SESSION['inputContent'];?>");
+        $("#titleid").val("<?php echo  @$_SESSION['inputTitle'];?>");
+        $("#contentid").val("<?php echo  @$_SESSION['inputContent'];?>");
     });
 </script>
 <body>
@@ -47,7 +49,7 @@
 			<a href="../index.php">首页</a> &gt; <a>发帖界面</a>
 	</div>
 	<div id="publish">
-		<form method="post" action="publish_deal.php" >
+		<form method="post"  action='publish_deal.php?getpubtime=<?php echo $gettime;?>' enctype="multipart/form-data" >
 			<select name="module_id">
 				<option selected="selected" value="">请选择一个版块</option>
 				<option value="1">PHP版块</option>
@@ -55,8 +57,8 @@
 				<option value="3">java版块</option>
 			</select>
 			<input class="title" placeholder="请输入标题" name="pub_title" type="text" id="titleid"/>
-			<textarea name="pub_content" class="content" id="contentid"></textarea>
-			<input class="publish" type="submit" name="submit" value="" />
+			<textarea name="pub_content" class="content"  id="contentid"></textarea>
+			<input class="publish" type="submit" name="submit" value="" data-type="content"/>
 			<div style="clear:both;"></div>
 		</form>
 	</div>
@@ -67,4 +69,31 @@
 		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
 	</div>
 </body>
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        //保存图片的
+        layedit.set({
+            uploadImage: {
+                url: 'load_image_publish.php?getpubtime=<?php echo "$gettime";?>' //接口url
+                ,type: 'post' //默认post
+            }
+        });
+        var index=layedit.build('contentid'); //建立编辑器
+       var active = {
+		    content: function(){
+                //获取编辑器内容
+		       layedit.getContent(index);
+
+		    }
+		  };
+		  
+		  $('.publish').on('click', function(){
+		    var type = $(this).data('type');
+		    active[type] ? active[type].call(this) : '';
+		  });
+    });
+
+</script>
+
 </html>
