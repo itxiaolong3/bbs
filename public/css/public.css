@@ -136,6 +136,10 @@ a.publish {
 a.reply {
     background:url(../image/bg.png) 0 -90px no-repeat;
 }
+a.delete {
+    background:url(../image/bg.png) 0 -150px no-repeat;
+    margin-right: 25px;
+}
 .pages_wrap .pages {
     float: right;
 }

@@ -12,7 +12,10 @@
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/show.css" />
 	<style type="text/css"></style>
-	<script type="text/javascript"></script>
+	<!--layui框架需要引入的js和css-->
+	<link rel="stylesheet" href=".<?php echo DIR_PUBLIC;?>/css/layui.css" media="all">
+	<script src=".<?php echo DIR_PUBLIC;?>/layui.js" charset="utf-8"></script>
+	<script src=".<?php echo DIR_PUBLIC;?>/js/jquery.min.js" charset="utf-8"></script>
 </head>
 <body>
 	<div class="header_wrap">
@@ -48,7 +51,9 @@
 			<div class="pages">
 				<?php echo $strPage;?>
 			</div>
+			<!--回复和删除按钮-->
 			<a class="btn reply" href="./reply.php?pub_id=<?php echo $row['pub_id'];?>"></a>
+			<a class="btn delete" href="#" id="bt_delete1" style="display: none"></a>
 			<div style="clear:both;"></div>
 		</div>
 		<?php if($pageNum==1){;?>
@@ -128,7 +133,9 @@
 			<div class="pages">
 				<?php echo $strPage;?>
 			</div>
+			<!--回复和删除按钮-->
 			<a class="btn reply" href="./reply.php?pub_id=<?php echo $row['pub_id'];?>"></a>
+			<a class="btn delete" href="#" id="bt_delete2" style="display: none"></a>
 			<div style="clear:both;"></div>
 		</div>
 	</div>
@@ -139,4 +146,29 @@
 		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
 	</div>
 </body>
+<script>
+	$(function () {
+	    //楼主
+		var username="<?php echo $row['pub_owner'];?>";
+		var getloginuser="<?php echo $getusername;?>";
+		if(username==getloginuser){
+            $("#bt_delete1,#bt_delete2").css('display','').click(function () {
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.confirm('你确定删除该帖？', function(index){
+                        layer.close(index);//关闭弹出框
+                        window.location.href="./delete_pub.php?pub_id=<?php echo $row['pub_id'];?>";
+                        layer.msg("妥妥的");
+                    });
+                });
+
+            });
+
+		}else{
+            $("#bt_delete1,#bt_delete2").css('display','none');
+		}
+
+    })
+
+</script>
 </html>

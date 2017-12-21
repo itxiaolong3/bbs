@@ -56,7 +56,7 @@
             </h3>
             <div class="num">
                 今日：<span>7</span>&nbsp;&nbsp;&nbsp;
-                总帖：<span>158061</span>
+                总帖：<span><?php echo "$rowCount";?></span>
                 <div class="moderator"> 子版块： <a>PHP基础</a></div>
             </div>
             <div class="pages_wrap">
@@ -70,6 +70,9 @@
         </div>
         <div style="clear:both;"></div>
         <ul class="postsList">
+            <?php if($rowCount<=0):?>
+            <?php echo "很抱歉，目前没有帖子。";?>
+            <?php endif;?>
             <?php while($row=mysqli_fetch_assoc($result)):?>
             <?php
 					//提取当前帖子的回复时间和回复的次数

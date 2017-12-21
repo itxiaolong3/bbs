@@ -14,7 +14,7 @@ $pub_id=$_GET['pub_id'];//楼主的id
 
 $mysql=MySqlDBUtil::getInstance($arr);
 //添加记录阅读次数的功能,如果是从回复页进来的就不用刷新，这里需要判断动作标志
-if (!$_GET['dataAction']){
+if (!isset($_GET['dataAction'])){
     $sql_pub_hits="update publish set pub_hits=pub_hits+1 where pub_id=$pub_id";
     $mysql->my_query($sql_pub_hits);
 }
@@ -99,5 +99,6 @@ $req_result=$mysql->my_query($req_sql);
 
 //开启session会话机制，判断是否登录
 session_start();
+$getusername=$_SESSION['userinfo']['user_name'];
 //加载视图
 include DIR_VIEW.'show.html';

@@ -139,7 +139,7 @@ class MySqlDBUtil
         if ($result = $this->my_query($sql)) {
             $row = mysqli_affected_rows($this->link);
             //释放结果集资源
-            mysqli_free_result($result);
+            @mysqli_free_result($result);
             //返回一条的数据
             return $row;
         } else {

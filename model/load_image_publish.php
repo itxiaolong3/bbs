@@ -18,9 +18,10 @@ $getpubtime=$_GET['getpubtime'];
 $file=$_FILES['file'];
 $allow=array('image/jpg','image/jpeg','image/png','image/gif');
 $path=DIR_UPLOADS."image_publish";
-$getimgname=substr(strrchr($result, "/"), 1);
+
 //调用上传函数
 $result=upload($file,$allow,$error,$path);
+$getimgname=substr(strrchr($result, "/"), 1);
 if ($result){
     //上传成功
     session_start();
