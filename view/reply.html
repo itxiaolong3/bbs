@@ -8,8 +8,10 @@
 	<link rel="shortcut icon" href=".<?php echo DIR_PUBLIC;?>/image/webheader.ico"/>
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/publish.css" />
-	<style type="text/css"></style>
-	<script type="text/javascript"></script>
+	<!--layui框架需要引入的js和css-->
+	<link rel="stylesheet" href=".<?php echo DIR_PUBLIC;?>/css/layui.css" media="all">
+	<script src=".<?php echo DIR_PUBLIC;?>/layui.js" charset="utf-8"></script>
+	<script src=".<?php echo DIR_PUBLIC;?>/js/jquery.min.js" charset="utf-8"></script>
 </head>
 <body>
 	<div class="header_wrap">
@@ -43,8 +45,9 @@
 	<div id="publish">
 		<div>回复：由 <?php echo $row['pub_owner']?> 发布的  <?php echo $row['pub_content']?></div>
 		<form method="POST" action="./reply_deal.php">
-			<input type="hidden" name="rep_pub_id" value=<?php echo $pub_id;?> />
-			<textarea name="rep_content" class="content"></textarea>
+			<input type="hidden" name="rep_pub_id" value=<?php echo $pub_id;?> /><hr/><hr/>
+			<label style="margin-top: 10px; display: block;margin-bottom: 5px;text-align: center;font-size: larger">请输入回复内容</label>
+			<textarea name="rep_content" class="content" id="rep_content"></textarea>
 			<input class="reply" type="submit"/>
 			<div style="clear:both;"></div>
 		</form>
@@ -56,4 +59,30 @@
 		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
 	</div>
 </body>
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        //保存图片的
+        layedit.set({
+            uploadImage: {
+                url: 'load_image_reply.php?pub_id=<?php echo "$pub_id";?>' //接口url
+                ,type: 'post' //默认post
+            }
+        });
+        var index=layedit.build('rep_content'); //建立编辑器
+        var active = {
+            content: function(){
+                //获取编辑器内容
+                layedit.getContent(index);
+
+            }
+        };
+
+        $('.publish').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+</script>
 </html>

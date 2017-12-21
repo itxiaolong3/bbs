@@ -13,10 +13,10 @@ $mysql=MySqlDBUtil::getInstance($arr);
 
 //获取传来的数据
 $rep_pub_id=trim($_POST['rep_pub_id']);
-$rep_content=escapeString($_POST['rep_content']);
+$rep_content=$_POST['rep_content'];
 //判断数据的合法性
 if (empty($rep_content)){
-    jump("./reply.html?pub_id=$rep_pub_id",2,'内容不可为空,3秒后自动回跳');
+    jump("./reply.php?pub_id=$rep_pub_id",2,'内容不可为空,3秒后自动回跳');
     die();
 }
 //$rep_user="小龙";
@@ -27,7 +27,7 @@ if (isset($_SESSION['userinfo'])){
     $rep_user=$_COOKIE['user_name'];
 }
 $rep_time=time();
-$sql_content="insert into reply values(null,'$rep_pub_id','$rep_user','$rep_content','$rep_time', default, default)";
+$sql_content="insert into reply values(null,'$rep_pub_id','$rep_user','$rep_content','$rep_time', default, default,'$rep_pub_id')";
 $result=$mysql->my_query($sql_content);
 
 if ($result){
@@ -36,5 +36,5 @@ if ($result){
 
 }else{
     //发表失败
-    jump("./reply.html?pub_id=$rep_pub_id",'1','发生未知错误，回复文章失败！');
+    jump("./reply.php?pub_id=$rep_pub_id",'1','发生未知错误，回复文章失败！');
 }

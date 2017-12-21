@@ -12,21 +12,23 @@ $sqlconfig=include DIR_CONFIG.'config.php';
 $arr=$sqlconfig['db'];
 $mysql=MySqlDBUtil::getInstance($arr);
 //加载上传文件验证文件
-include DIR_CORE.'upload_publish.php';
-$getpubtime=$_GET['getpubtime'];
+include DIR_CORE.'upload_reply.php';
+//$getpubtime=$_GET['getpubtime'];
+$getpubid=$_GET['pub_id'];
 //声明上传的参数
 $file=$_FILES['file'];
 $allow=array('image/jpg','image/jpeg','image/png','image/gif');
-$path=DIR_UPLOADS."image_publish";
-$getimgname=substr(strrchr($result, "/"), 1);
+$path=DIR_UPLOADS."image_reply";
+//var_dump($_FILES);
 //调用上传函数
 $result=upload($file,$allow,$error,$path);
+$getimgname=substr(strrchr($result, "/"), 1);
 if ($result){
     //上传成功
     session_start();
     
     //更新数据库中的用户表，添加图片路径数据到数据库
-    $sql="insert into pub_img values(null,'$result','$getimgname','$getpubtime' ,DEFAULT )";
+    $sql="insert into pub_img values(null,'$result','$getimgname',DEFAULT ,'$getpubid' )";
     $res=$mysql->my_query($sql);
     if ($res){
         //图片入库成功
@@ -37,7 +39,7 @@ if ($result){
 				  ,"msg": "" 
 				  ,"data": {
 				    "src":"'. "{$result}".'"
-				   ,"title":"'."{$getimgname}".'"
+				    ,"title":"'."{$getimgname}".'"
 				  }
 			}';
         //jump('./list_father.php',1,"上传成功");

@@ -8,8 +8,10 @@
 	<link rel="shortcut icon" href=".<?php echo DIR_PUBLIC;?>/image/webheader.ico"/>
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/public.css" />
 	<link rel="stylesheet" type="text/css" href=".<?php echo DIR_PUBLIC;?>/css/publish.css" />
-	<style type="text/css"></style>
-	<script type="text/javascript"></script>
+	<!--layui框架需要引入的js和css-->
+	<link rel="stylesheet" href=".<?php echo DIR_PUBLIC;?>/css/layui.css" media="all">
+	<script src=".<?php echo DIR_PUBLIC;?>/layui.js" charset="utf-8"></script>
+	<script src=".<?php echo DIR_PUBLIC;?>/js/jquery.min.js" charset="utf-8"></script>
 </head>
 <body>
 	<div class="header_wrap">
@@ -47,7 +49,7 @@
 			<?php echo $rep_row['rep_content'];?>
 		</div>
 		<form method="POST" action="quote_deal.php?num=<?php echo $num;?>&pub_id=<?php echo $pub_id;?>&rep_id=<?php echo $rep_id;?>">
-			<textarea name="rep_content" class="content"></textarea>
+			<textarea name="rep_content" class="content" id="quote_content"></textarea>
 			<input class="reply" type="submit"  value="" />
 			<div style="clear:both;"></div>
 		</form>
@@ -59,4 +61,30 @@
 		<div class="copyright">版权所有权归属 小龙 ©2017 www.itxiaolong.com</div>
 	</div>
 </body>
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        //保存图片的
+        layedit.set({
+            uploadImage: {
+                url: 'load_image_reply.php?pub_id=<?php echo "$pub_id";?>' //接口url
+                ,type: 'post' //默认post
+            }
+        });
+        var index=layedit.build('quote_content'); //建立编辑器
+        var active = {
+            content: function(){
+                //获取编辑器内容
+                layedit.getContent(index);
+
+            }
+        };
+
+        $('.publish').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+</script>
 </html>
