@@ -16,6 +16,12 @@
 	<link rel="stylesheet" href=".<?php echo DIR_PUBLIC;?>/css/layui.css" media="all">
 	<script src=".<?php echo DIR_PUBLIC;?>/layui.js" charset="utf-8"></script>
 	<script src=".<?php echo DIR_PUBLIC;?>/js/jquery.min.js" charset="utf-8"></script>
+	<style>
+		.content img{
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
 </head>
 <body>
 	<div class="header_wrap">
@@ -44,7 +50,7 @@
 	</div>
 	<div style="margin-top:50px;"></div>
 	<div id="position_a" class="auto">
-		 <a href="../index.php">首页</a> &gt; <a href="javascript :;"  onClick="javascript :history.back(-1);">返回</a> &gt; <a>回帖展示</a>
+		 <a href="../index.php">首页</a> &gt; <a href="./list_father.php">返回</a> &gt; <a>回帖展示</a>
 	</div>
 	<div id="main" class="auto">
 		<div class="wrap1">
@@ -106,7 +112,13 @@
 					<span class="date">回复时间：<?php echo date('Y-m-d H:i:s',$req_row['rep_time']);?></span>
 					<span class="floor"><?php echo $i++;?>楼&nbsp;|&nbsp;
 						<a href="./quote.php?num=<?php echo $i-1; ?>&pub_id=<?php echo $row['pub_id'];?>&rep_id=<?php echo $req_row['rep_id'];?>">
-							引用</a></span>
+							引用</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<?php if($req_row['rep_user']==$getusername):?>
+							<a href='javascript:goDelete("<?php echo $req_row['rep_pub_id']?>","<?php echo $req_row['rep_id']?>")' name="rep_black">撤回</a>
+						<?php else:?>
+						<a href='javascript:goDelete("<?php echo $req_row['rep_pub_id'];?>","<?php echo $req_row['rep_id'];?>")' name="rep_black" style="display: none">撤回</a>
+						<?php endif;?>
+					</span>
 				</div>
 				<div class="content">
 					<?php
@@ -150,6 +162,7 @@
 	$(function () {
 	    //楼主
 		var username="<?php echo $row['pub_owner'];?>";
+		var repusername="<?php echo $rowrep['rep_user']?>";
 		var getloginuser="<?php echo $getusername;?>";
 		if(username==getloginuser){
             $("#bt_delete1,#bt_delete2").css('display','').click(function () {
@@ -168,7 +181,18 @@
             $("#bt_delete1,#bt_delete2").css('display','none');
 		}
 
-    })
 
+    })
+    function goDelete(pubid,repid) {
+        //alert("提示我"+repid);
+              layui.use('layer', function(){
+                  var layer = layui.layer;
+                  layer.confirm('是否确定撤回？', function(index){
+                      layer.close(index);//关闭弹出框
+					  window.location.href="./delete_rep.php?pub_id="+pubid+"&repid="+repid;
+                      layer.msg("稳稳的"+repid+":"+pubid);
+                  });
+              });
+    }
 </script>
 </html>

@@ -22,6 +22,7 @@ if (!isset($_GET['dataAction'])){
 //得到一个数组
 $sql="select * from publish LEFT JOIN user on pub_owner=user_name where pub_id =$pub_id";
 $row=$mysql->fetchRow($sql);//得到楼主的信息
+$rowrep=$mysql->fetchRow("select *from reply where rep_pub_id='$pub_id'");//得到对应的回帖信息
 //实现分页开始
 //1、接收当前页码数，2、定义每页显示的记录数，3、查询总记录数，4、计算总页数，5、拼凑页码字符串
 $pageNum=isset($_GET['num']) ? $_GET['num'] : 1;         //1、接收当前页码数
@@ -37,7 +38,12 @@ $pages=ceil($rowCount / $eveyPage);               //4、计算总页数,ceil是�
 //5、拼凑页码字符串
 //首页
 $strPage='';
-$strPage.="<a href='show.php?pub_id=$pub_id&num=1&dataAction=reply'>首页</a>";
+if($pages==0){
+    $strPage.="<span style='background: #E0DEDE; border-color: #E0DEDE #D6D3D3 #CBC6C6;'>首页</span>";
+}else{
+    $strPage.="<a href='show.php?pub_id=$pub_id&num=1&dataAction=reply'>首页</a>";
+}
+
 //上一页
 $prePage=$pageNum== 1 ? 1 : $pageNum-1;
 if ($pageNum==1){

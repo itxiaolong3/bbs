@@ -58,7 +58,7 @@
 			</select>
 			<input class="title" placeholder="请输入标题" name="pub_title" type="text" id="titleid"/><hr/>
 			<label style="margin-top: 10px; display: block;margin-bottom: 5px;">请输入发表内容</label>
-			<textarea name="pub_content" class="content"  id="contentid"></textarea>
+			<textarea name="pub_content" class="content"  id="contentid" autofocus="true"></textarea>
 			<input class="publish" type="submit" name="submit" value="" data-type="content"/>
 			<div style="clear:both;"></div>
 		</form>
@@ -78,6 +78,7 @@
             uploadImage: {
                 url: 'load_image_publish.php?getpubtime=<?php echo "$gettime";?>' //接口url
                 ,type: 'post' //默认post
+
             }
         });
         var index=layedit.build('contentid'); //建立编辑器
